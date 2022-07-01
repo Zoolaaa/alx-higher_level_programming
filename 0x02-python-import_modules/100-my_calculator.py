@@ -1,22 +1,26 @@
 #!/usr/bin/python3
-if __name__ == "__main__":
-    from calculator_1 import add, sub, mul, div
-    from sys import argv
-    my_calc()
-
-def my_calc():
-    operations = {"+": add, "-": sub, "*": mul, "/": div}
-    length = len(argv) - 1
-    if (length < 3):
-        print("Usage: ./100-my_calculator.py <a> <operator> <b>")
+def main(argv):
+    argc = len(argv)
+    ops = {
+        '+': calculator_1.add,
+        '-': calculator_1.sub,
+        '*': calculator_1.mul,
+        '/': calculator_1.div,
+    }
+    if argc != 4:
+        print('Usage: {:s} <a> <operator> <b>'.format(argv[0]))
         exit(1)
-
     a = int(argv[1])
     b = int(argv[3])
-    operator = argv[2]
-
-    if operator not in operations:
-        print("Unknown operator. Available operators: +, -, * and /")
+    op = argv[2]
+    if op not in '+-*/':
+        print('Unknown operator. Available operators: +, -, * and /')
         exit(1)
-    result = operations[operator](a, b)
-    print("{} {} {} = {}".format(a, operator, b, result))
+    res = ops[op](a, b)
+    print('{:d} {:s} {:d} = {:d}'.format(a, op, b, res))
+
+
+if __name__ == '__main__':
+    from sys import argv, exit
+    import calculator_1
+    main(argv)
